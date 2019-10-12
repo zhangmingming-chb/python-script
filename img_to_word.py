@@ -1,6 +1,6 @@
 #安装外部依赖库 pip install baidu-aip
 #脚本文件要和“图片”文件夹在同一个目录
-#将需要录入的选择题图片放入“图片”文件夹后执行脚本
+#将需要录入的选择题图片放入“img”文件夹后执行脚本
 #录入完成后题目保存的文件为"识别结果.txt"
 #百度AI平台 http://ai.baidu.com/
 import os
@@ -24,11 +24,11 @@ def collect(img_dress):
     except Exception as e:
         print(e)
 
-all_imgname_list=os.listdir('图片')
+all_imgname_list=os.listdir('img')
 print(all_imgname_list)
 sum = len(all_imgname_list)
 print('图片总数:' + str(len(all_imgname_list)))
 for oneimg_name in all_imgname_list:
-    collect('图片\\'+oneimg_name)
+    collect('img\\'+oneimg_name)
     sum-=1
 print('----------------全部识别录入任务已完成！----------------')
