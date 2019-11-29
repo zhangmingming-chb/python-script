@@ -1,34 +1,10 @@
 #-*-encoding:utf8-*-
 import sqlite3
 import time
-import jieba
+import jieba # 第三方库安装命令 pip install jieba
 import random
-# con=sqlite3.connect('weibo_words.db')
-# cur=con.cursor()
-# cur.execute("create table words(Id int PRIMARY KEY ,Words varchar(50))")
-# f = open('res','r',encoding='utf-8')
-# n = 1
-# error=0
-# start_time=time.time()
-# for i in f:
-#     try:
-#         words=i.replace(' ','')
-#         cur.execute("insert into words VALUES ({},'{}')".format(n,words))
-#         print(f"第{n}条数据存入成功！发生错误数: {error}")
-#         n+=1
-#         if n%1000==0:
-#             con.commit()
-#     except:
-#         error+=1
-#         pass
-# spend_time=time.time()-start_time
-# print('全部{n} 条数据录入完成！','总共耗时:',spend_time)
 
 def robot_chat(word):
-    import sqlite3
-    import time
-    import jieba
-    import random
     start_time = time.time()
     con = sqlite3.connect('weibo_words.db')
     cur = con.cursor()
@@ -56,5 +32,5 @@ def robot_chat(word):
     else:
         return '小K,听不懂你说的这个{}'.format(word)
 
-a=robot_chat('千百度')
+a=robot_chat('小K你好！')
 print(a)
