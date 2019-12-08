@@ -1,6 +1,7 @@
-import os
-import time
+# -*-coding:utf-8-*-
 def auto_install_package(packages_name_list):
+    import os
+    import time
     installed_package = list()
     not_installed_package = list()
     p = os.popen("pip3 list")  # 获取所有包名 直接用 pip list 也可获取
@@ -29,6 +30,7 @@ def auto_install_package(packages_name_list):
                 print('[INFO] 依赖包 {} 安装失败! {}'.format(package_name,p.read()))
     else:
         print("[INFO] 引入的全部依赖包已存在！")
+    os.system("clear")
 auto_install_package(["psutil","requests"])
 import psutil
 import datetime
@@ -118,8 +120,6 @@ while True:
     sent = byteSent2 - byteSent1  # interval 秒内所获取的上传字节数
     recv = byteRecv2 - byteRecv1  # interval 秒内所获取的下载字节数
 
-
-
     if sent > m:
         sent = sent / m
         sent_unit = 'M/' + unit
@@ -149,4 +149,4 @@ while True:
     #内存空闲
     memory_free_sum=round(psutil.virtual_memory().free/1024**2)
 
-    print(f'\r[上传速度]: {round(sent,2)} {sent_unit} [下载速度]: {round(recv,2)} {recv_unit} [CPU使用率]:{cpu_percent}% [内存占用]: {memory_spend_percent}%({memory_spend_sum}/{memory_all_sum}M)',end="")
+    print(f'\r[↑]: {round(sent,2)} {sent_unit} [↓]: {round(recv,2)} {recv_unit} [CPU]:{cpu_percent}% [MEM]: {memory_spend_percent}%({memory_spend_sum}/{memory_all_sum}M)',end="")
