@@ -1,17 +1,34 @@
 import os
+import time
 def auto_install_package(packages_name_list):
+    installed_package = list()
+    not_installed_package = list()
     p = os.popen("pip3 list")  # 获取所有包名 直接用 pip list 也可获取
-    pip_list = p.read()  # 读取所有内容
+    pip_list = p.read().lower()  # 读取所有内容
     for package_name in packages_name_list:
-        if package_name.lower()in pip_list or package_name.title()in pip_list:
-            print("[PACKAGE_INFO]已存在外部依赖包 {}".format(package_name))
-            os.system("cls")
-
+        if package_name.lower() in pip_list:
+            installed_package.append(package_name)
         else:
-            print("[PACKAGE_INFO]检测到{}包未安装 正在自动安装中...".format(package_name))
-            p = os.popen("pip3 install {}".format(package_name))
+            not_installed_package.append(package_name)
+
+    if len(installed_package) != 0:
+        for package_name in installed_package:
+            print("[INFO] 依赖包 {} 已存在！".format(package_name))
+    else:
+        print("[INFO] 未检测到任何已安装依赖包！")
+
+    if len(not_installed_package) != 0:
+        for package_name in not_installed_package:
+            print("[INFO] 检测到 {} 包未安装 正在自动安装中...".format(package_name))
+            start_time = time.time()
+            p = os.popen("pip3 install {} -i https://pypi.douban.com/simple/".format(package_name))
             if "Success" in p.read():
-                print("[PACKAGE_INFO]依赖包{}安装成功!".format(package_name))
+                spend_time = time.time() - start_time
+                print("[INFO Spend_time:{}s] 依赖包 {} 安装成功!".format(round(spend_time,2),package_name))
+            else:
+                print('[INFO] 依赖包 {} 安装失败! {}'.format(package_name,p.read()))
+    else:
+        print("[INFO] 引入的全部依赖包已存在！")
 auto_install_package(["psutil","requests"])
 import psutil
 import datetime
