@@ -21,7 +21,6 @@ def get_sign(room_id, app_id, secret):
         "appId": app_id
     }
     token = jwt.encode(payload, secret, algorithm='HS256')
-
     return token
 
 
@@ -31,7 +30,7 @@ def on_message(ws, message):
     print(info)
     data = message
     # print("数据过滤中...")
-    username = re.findall('"badgeName":"(.*?)","content":".*?",', data)
+    username = re.findall('"sendNick":"(.*?)",', data)
     comment = re.findall('"badgeName":".*?","content":"(.*?)",', data)
     if username and comment:
         d = '{"%s":"%s"}' % (username[0], comment[0])
@@ -41,6 +40,7 @@ def on_message(ws, message):
         for name, comment in comment_data.items():
             wb = load_workbook(FILE_NAME)
             ws0 = wb.active
+            print(name,comment)
             ws0.append([name, comment, current_time])
             wb.save(FILE_NAME)
 
